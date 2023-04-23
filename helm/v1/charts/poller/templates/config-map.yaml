@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: poller-env
+data:
+  CONTRACT_ADDRESS: "data"
+  WEB3_PROVIDER: "data"

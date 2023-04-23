@@ -1,20 +1,22 @@
-# todo: describe postgres
-# postgresql:
-#   fullnameOverride: postgres
-#   postgresqlDatabase: "demo"
-#   postgresqlUsername: "demo"
-#   postgresqlPassword: "demo"
-#   persistence:
-#     size: 5Gi
-#     mountPath: /var/lib/postgresql/data
+postgresql:
+  fullnameOverride: postgres-service
+  postgresqlDatabase: "tokens"
+  postgresqlUsername: "cG9zdGdyZXM"
+  postgresqlPassword: "cG9zdGdyZXM"
+  persistence:
+    size: 5Gi
+    mountPath: /var/lib/postgresql/data
 
-# configs:
-#   POSTGRES_DB: demo
-#   POSTGRES_HOST: postgres
+configs:
+  DB_HOST: "postgres-service" 
+  DB_PORT: "5432"
+  DB_DATABASE: "tokens"
+  CONTRACT_ADDRESS: "data"
+  WEB3_PROVIDER: "data"
 
-# secrets:
-#   POSTGRES_USER: "ZGVtbw=="
-#   POSTGRES_PASSWORD: "ZGVtbw=="
+secrets:
+  DB_USERNAME: "cG9zdGdyZXM="
+  DB_PASSWORD: "cG9zdGdyZXM="
 
 microservices:
   client:
@@ -30,36 +32,47 @@ microservices:
     ingress:
       path: /
       port: 80
-
-  # service1:
-  #   replicaCount: 2
-  #   migrations:
-  #     image:
-  #       name: service1-migrations
-  #       tag: 0.1
-  #     POSTGRESQL_URL: "postgres://demo:demo@postgres:5432/demo?sslmode=disable"
-  #     VERSION: "20211128095755"
-  #   image:
-  #     name: service1
-  #     tag: 0.2
-  #   service:
-  #     ports:
-  #     - name: http
-  #       containerPort: 8080
-  #       port: 80
-  #   ingress:
-  #     path: /api/service1
-  #     port: http
-
-  # service2:
-  #   image:
-  #     name: service2
-  #     tag: 0.1
-  #   service:
-  #     ports:
-  #     - name: http
-  #       containerPort: 8080
-  #       port: 80
-  #   ingress:
-  #     path: /api/service2
-  #     port: http
+  token-factory:
+    replicaCount: 2
+    image:
+      name: token-factory
+      tag: latest
+    service:
+      ports:
+      - name: http
+        port: 3000
+        targetPort: 3000
+        containerPort: 3000
+    ingress:
+      path: /factory
+      port: 3000
+  token-manager:
+    migrations:
+      image:
+        name: token-manager-migrations
+        tag: latest
+      POSTGRESQL_URL: "postgres://postgres:postgres@postgres-service:5432/tokens?sslmode=disable"
+      VERSION: "20211128095755"
+    image:
+      name: token-manager
+      tag: latest
+    service:
+      ports:
+      - name: http
+        port: 3000
+        targetPort: 3000
+        containerPort: 3000
+    ingress:
+      path: /token
+      port: 3000
+  poller:
+    skipIngress: true
+    image:
+      name: poller
+      tag: latest
+    service:
+      ports:
+      - name: http
+        port: 3000
+        targetPort: 3000
+        containerPort: 3000

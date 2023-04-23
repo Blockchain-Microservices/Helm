@@ -1,8 +1,8 @@
 postgresql:
-  fullnameOverride: postgres-service
+  fullnameOverride: postgres
   postgresqlDatabase: "tokens"
-  postgresqlUsername: "cG9zdGdyZXM"
-  postgresqlPassword: "cG9zdGdyZXM"
+  postgresqlUsername: "cG9zdGdyZXM="
+  postgresqlPassword: "cG9zdGdyZXM="
   persistence:
     size: 5Gi
     mountPath: /var/lib/postgresql/data
@@ -11,8 +11,8 @@ configs:
   DB_HOST: "postgres-service" 
   DB_PORT: "5432"
   DB_DATABASE: "tokens"
-  CONTRACT_ADDRESS: "data"
-  WEB3_PROVIDER: "data"
+  CONTRACT_ADDRESS: 0xA34dA3b530F5B288d8180aDBE8d5196BcE507Edb
+  WEB3_PROVIDER: https://goerli.infura.io/v3/335cff36dbc545ed8a73a89c91580186
 
 secrets:
   DB_USERNAME: "cG9zdGdyZXM="

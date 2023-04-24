@@ -1,0 +1,17 @@
+replicaCount: 1
+
+selector:
+  app: poller
+
+image:
+  name: poller
+  tag: latest
+
+service:
+  ports:
+    - port: 3000
+      containerPort: 3000
+
+configs:
+  CONTRACT_ADDRESS: "data"
+  WEB3_PROVIDER: "data"

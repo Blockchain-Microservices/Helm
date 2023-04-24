@@ -1,0 +1,17 @@
+replicaCount: 1
+
+selector:
+  app: token-factory
+
+image:
+  name: token-factory
+  tag: latest
+
+service:
+  ports:
+    - port: 3000
+      containerPort: 3000
+
+ingress:
+  path: /factory
+  port: 3000

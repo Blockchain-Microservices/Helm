@@ -1,0 +1,17 @@
+replicaCount: 1
+
+selector:
+  app: poller
+
+image:
+  name: poller
+  tag: latest
+
+service:
+  ports:
+    - port: 3000
+      containerPort: 3000
+
+configs:
+  CONTRACT_ADDRESS: "0xA34dA3b530F5B288d8180aDBE8d5196BcE507Edb"
+  WEB3_PROVIDER: "https://goerli.infura.io/v3/335cff36dbc545ed8a73a89c91580186"

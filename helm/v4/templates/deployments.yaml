@@ -23,6 +23,7 @@ spec:
       initContainers:
       {{- if $value.migrations }}
         - name: {{ $value.migrations.image.name }}
+          imagePullPolicy: Never
           image: {{ $value.migrations.image.name }}:{{ $value.migrations.image.tag }}
           command: ["migrate", "-path", "/migrations", "-database",  "$(POSTGRESQL_URL)", "goto", "$(VERSION)"]
           env:
@@ -35,6 +36,8 @@ spec:
         - image: {{ $value.image.name }}:{{ $value.image.tag }}
           name: {{ $value.image.name }}
           imagePullPolicy: Never
+          securityContext:
+            privileged: true
           ports:
           {{- range $value.service.ports }}
           - name: {{ .name }}

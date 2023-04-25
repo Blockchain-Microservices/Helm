@@ -1,22 +1,24 @@
 postgresql:
-  fullnameOverride: postgres
-  postgresqlDatabase: "tokens"
-  postgresqlUsername: "cG9zdGdyZXM="
-  postgresqlPassword: "cG9zdGdyZXM="
-  persistence:
-    size: 5Gi
-    mountPath: /var/lib/postgresql/data
+  fullnameOverride: "postgres"
+  auth:
+    database: "tokens"
+    username: "user"
+    password: "user"
+  primary:
+    persistence:
+      size: 5Gi
+      mountPath: /var/lib/postgresql/data
 
 configs:
-  DB_HOST: "postgres-service" 
+  DB_HOST: "postgres" 
   DB_PORT: "5432"
   DB_DATABASE: "tokens"
   CONTRACT_ADDRESS: 0xA34dA3b530F5B288d8180aDBE8d5196BcE507Edb
   WEB3_PROVIDER: https://goerli.infura.io/v3/335cff36dbc545ed8a73a89c91580186
 
 secrets:
-  DB_USERNAME: "cG9zdGdyZXM="
-  DB_PASSWORD: "cG9zdGdyZXM="
+  DB_USERNAME: "dXNlcg==" 
+  DB_PASSWORD: "dXNlcg==" 
 
 microservices:
   client:
@@ -51,7 +53,7 @@ microservices:
       image:
         name: token-manager-migrations
         tag: latest
-      POSTGRESQL_URL: "postgres://postgres:postgres@postgres-service:5432/tokens?sslmode=disable"
+      POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
       VERSION: "20211128095755"
     image:
       name: token-manager

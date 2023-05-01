@@ -67,6 +67,25 @@ microservices:
     ingress:
       path: /token
       port: 3000
+  user-service:
+    migrations:
+      image:
+        name: users-migrations
+        tag: latest
+      POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
+      VERSION: "20211128095755"
+    image:
+      name: user-service
+      tag: latest
+    service:
+      ports:
+        - name: http
+          port: 8080
+          targetPort: 8080
+          containerPort: 8080
+    ingress:
+      path: /user
+      port: 8080
   poller:
     skipIngress: true
     image:

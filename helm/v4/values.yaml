@@ -1,0 +1,99 @@
+postgresql:
+  fullnameOverride: "postgres"
+  auth:
+    database: "tokens"
+    username: "user"
+    password: "user"
+  primary:
+    persistence:
+      size: 5Gi
+      mountPath: /var/lib/postgresql/data
+
+configs:
+  DB_HOST: "postgres" 
+  DB_PORT: "5432"
+  DB_DATABASE: "tokens"
+  CONTRACT_ADDRESS: 0xA34dA3b530F5B288d8180aDBE8d5196BcE507Edb
+  WEB3_PROVIDER: https://goerli.infura.io/v3/335cff36dbc545ed8a73a89c91580186
+
+secrets:
+  DB_USERNAME: "dXNlcg==" 
+  DB_PASSWORD: "dXNlcg==" 
+
+microservices:
+  client:
+    image:
+      name: client
+      tag:  latest
+    service:
+      ports:
+        - name: http
+          port: 80
+          targetPort: 80
+          containerPort: 80
+    ingress:
+      path: /
+      port: 80
+  token-factory:
+    replicaCount: 2
+    image:
+      name: token-factory
+      tag: latest
+    service:
+      ports:
+      - name: http
+        port: 3000
+        targetPort: 3000
+        containerPort: 3000
+    ingress:
+      path: /factory
+      port: 3000
+  token-manager:
+    migrations:
+      image:
+        name: token-manager-migrations
+        tag: latest
+      POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
+      VERSION: "20211128095755"
+    image:
+      name: token-manager
+      tag: latest
+    service:
+      ports:
+      - name: http
+        port: 3000
+        targetPort: 3000
+        containerPort: 3000
+    ingress:
+      path: /token
+      port: 3000
+  user-service:
+    migrations:
+      image:
+        name: users-migrations
+        tag: latest
+      POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
+      VERSION: "20211128095755"
+    image:
+      name: user-service
+      tag: latest
+    service:
+      ports:
+        - name: http
+          port: 8080
+          targetPort: 8080
+          containerPort: 8080
+    ingress:
+      path: /user
+      port: 8080
+  poller:
+    skipIngress: true
+    image:
+      name: poller
+      tag: latest
+    service:
+      ports:
+      - name: http
+        port: 3000
+        targetPort: 3000
+        containerPort: 3000

@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-deployment
+  labels:
+    name: {{ .Release.Name }}-{{ .Chart.Name }}-deployment
+    {{ .Values.selector | toYaml }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-{{ .Chart.Name }}-pod
+      {{ .Values.selector | toYaml }}
+  template:
+    metadata:
+      name: {{ .Release.Name }}-{{ .Chart.Name }}-pod
+      labels:
+        name: {{ .Release.Name }}-{{ .Chart.Name }}-pod
+        {{ .Values.selector | toYaml }}
+    spec:
+      containers:
+        - name: {{ .Values.image.name }}
+          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: Never
+          securityContext:
+            privileged: true
+          ports:
+            {{- range .Values.service.ports }}
+            - containerPort: {{ .containerPort }}
+            {{- end }}
+          envFrom:
+            - configMapRef:
+                name: {{ .Release.Name }}-{{ .Chart.Name }}-config
+            - secretRef:
+                name: {{ .Release.Name }}-{{ .Chart.Name }}-secret
+      initContainers:
+        - name: {{ .Values.migrations.image.name }}
+          image:  {{ .Values.migrations.image.name }}:{{ .Values.migrations.image.tag }}
+          imagePullPolicy: Never
+          command: ["migrate", "-path", "/migrations", "-database", "$(POSTGRESQL_URL)", "goto", "$(VERSION)"]
+          env:
+            - name: POSTGRESQL_URL
+              value: {{ .Values.migrations.config.POSTGRESQL_URL | quote }}
+            - name: VERSION
+              value: {{ .Values.migrations.config.VERSION | quote }}

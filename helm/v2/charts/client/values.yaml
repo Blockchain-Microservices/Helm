@@ -10,6 +10,7 @@ image:
 service:
   ports:
     - port: 80
+      targetPort: 80
       containerPort: 80
 
 ingress:

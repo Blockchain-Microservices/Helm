@@ -7,7 +7,7 @@ spec:
   ports:
     {{- range .Values.service.ports }}
     - port: {{ .port }}
-      containerPort: {{ .containerPort }}
+      targetPort: {{ .targetPort }}
     {{- end }}
   selector:
     {{ .Values.selector | toYaml }}

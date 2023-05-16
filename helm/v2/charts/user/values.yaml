@@ -22,8 +22,8 @@ migrations:
     name: user-service-migrations
     tag: latest
   config:
-    POSTGRESQL_URL: "postgres://postgres:postgres@postgres-service:5432/tokens?sslmode=disable"
-    VERSION: "1680253200"
+    POSTGRESQL_URL: "postgres://user:user@postgres-service:5432/tokens?sslmode=disable"
+    VERSION: "20211128095755"
 
 configs:
   DB_DATABASE: "tokens"
@@ -31,5 +31,5 @@ configs:
   DB_PORT: "5432"
 
 secrets:
-  DB_USERNAME: "cG9zdGdyZXM="
-  DB_PASSWORD: "cG9zdGdyZXM="
+  DB_USERNAME: "dXNlcg==" #user
+  DB_PASSWORD: "dXNlcg==" #user

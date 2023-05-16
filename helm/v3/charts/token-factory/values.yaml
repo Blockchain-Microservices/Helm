@@ -15,3 +15,6 @@ service:
 ingress:
   path: /factory
   port: 3000
+
+configs:
+  TOKEN_MANAGER_URL: "http://localhost"

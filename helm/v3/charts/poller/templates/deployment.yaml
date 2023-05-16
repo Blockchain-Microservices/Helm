@@ -18,7 +18,7 @@ spec:
         imagePullPolicy: Never
         envFrom:
         - configMapRef:
-            name: {{ .Release.Name }}-{{ .Chart.Name }}-env
+            name: {{ .Release.Name }}-{{ .Chart.Name }}-config
         ports:
           {{- range .Values.service.ports }}
             - containerPort: {{ .containerPort }}

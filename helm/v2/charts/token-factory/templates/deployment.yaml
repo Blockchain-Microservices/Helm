@@ -20,3 +20,6 @@ spec:
           {{- range .Values.service.ports }}
             - containerPort: {{ .containerPort }}
           {{- end }}
+        envFrom:
+        - configMapRef:
+            name: {{ .Release.Name }}-{{ .Chart.Name }}-config

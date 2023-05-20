@@ -22,12 +22,12 @@ migrations:
     name: user-service-migrations
     tag: latest
   config:
-    POSTGRESQL_URL: "postgres://user:user@postgres-service:5432/tokens?sslmode=disable"
+    POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
     VERSION: "20211128095755"
 
 configs:
   DB_DATABASE: "tokens"
-  DB_HOST: "postgres-service"
+  DB_HOST: "postgres"
   DB_PORT: "5432"
 
 secrets:

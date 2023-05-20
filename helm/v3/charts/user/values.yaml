@@ -33,3 +33,10 @@ configs:
 secrets:
   DB_USERNAME: "dXNlcg==" #user
   DB_PASSWORD: "dXNlcg==" #user
+
+virtual:
+  timeout: 5s
+  retries:
+    attempts: 3
+    retryOn: 5xx
+    perTryTimeout: 5s  

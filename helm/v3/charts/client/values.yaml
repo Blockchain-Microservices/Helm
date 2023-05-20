@@ -16,3 +16,10 @@ service:
 ingress:
   path: /
   port: 80
+
+virtual:
+  timeout: 5s
+  retries:
+    attempts: 3
+    retryOn: 5xx
+    perTryTimeout: 5s  

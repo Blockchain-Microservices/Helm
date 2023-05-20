@@ -1,0 +1,17 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-virtual
+spec:
+  hosts:
+    - {{ .Release.Name }}-{{ .Chart.Name }}-service
+  http:
+    - route:
+        - destination:
+            host: {{ .Release.Name }}-{{ .Chart.Name }}-service
+      timeout: {{ .Values.virtual.timeout }}
+      retries:
+        attempts: {{ .Values.virtual.retries.attempts }}
+        retryOn: {{ .Values.virtual.retries.retryOn }}
+        perTryTimeout: {{ .Values.virtual.retries.perTryTimeout }} 
+      

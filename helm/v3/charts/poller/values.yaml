@@ -16,3 +16,10 @@ configs:
   CONTRACT_ADDRESS: "0xA34dA3b530F5B288d8180aDBE8d5196BcE507Edb"
   WEB3_PROVIDER: "https://goerli.infura.io/v3/335cff36dbc545ed8a73a89c91580186"
   TOKEN_MANAGER_URL: "http://localhost"
+
+virtual:
+  timeout: 5s
+  retries:
+    attempts: 3
+    retryOn: 5xx
+    perTryTimeout: 5s  

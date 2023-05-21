@@ -23,3 +23,9 @@ virtual:
     attempts: 3
     retryOn: 5xx
     perTryTimeout: 5s  
+
+trafficPolicy:
+  consecutive5xxErrors: 7
+  interval: 5m
+  baseEjectionTime: 15m
+  maxEjectionPercent: 80

@@ -4,7 +4,7 @@
 
 ### Clone this repository
 
-    git clone     
+    git clone https://github.com/Blockchain-Microservices/Helm.git
  
 ### Enable extension for minikube
     

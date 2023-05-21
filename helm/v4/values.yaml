@@ -68,12 +68,6 @@ microservices:
       path: /token
       port: 3000
   user-service:
-    migrations:
-      image:
-        name: user-service-migrations
-        tag: latest
-      POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
-      VERSION: "20211128095755" 
     image:
       name: user-service
       tag: latest

@@ -7,7 +7,7 @@ docker build -t token-manager:latest -f Dockerfile .
 cd ..
 
 cd UserService/
-docker build -t users-service-migrations -f src/main/resources/db/migration/Dockerfile .
+docker build -t user-service-migrations -f src/main/resources/db/migration/Dockerfile .
 docker build -t user-service:latest -f Dockerfile .
 cd ..
 

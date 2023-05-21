@@ -70,7 +70,7 @@ microservices:
   user-service:
     migrations:
       image:
-        name: users-migrations
+        name: user-service-migrations
         tag: latest
       POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
       VERSION: "20211128095755" 

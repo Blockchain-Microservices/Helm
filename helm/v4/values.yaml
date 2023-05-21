@@ -15,6 +15,7 @@ configs:
   DB_DATABASE: "tokens"
   CONTRACT_ADDRESS: 0xA34dA3b530F5B288d8180aDBE8d5196BcE507Edb
   WEB3_PROVIDER: https://goerli.infura.io/v3/335cff36dbc545ed8a73a89c91580186
+  TOKEN_MANAGER_URL: "http://localhost"
 
 secrets:
   DB_USERNAME: "dXNlcg==" 
@@ -23,8 +24,9 @@ secrets:
 microservices:
   client:
     image:
+      repository: sanixto
       name: client
-      tag:  latest
+      tag:  1
     service:
       ports:
         - name: http
@@ -37,8 +39,9 @@ microservices:
   token-factory:
     replicaCount: 2
     image:
+      repository: sanixto
       name: token-factory
-      tag: latest
+      tag: 1
     service:
       ports:
       - name: http
@@ -56,8 +59,9 @@ microservices:
       POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
       VERSION: "20211128095755"
     image:
+      repository: sanixto
       name: token-manager
-      tag: latest
+      tag: 1
     service:
       ports:
       - name: http
@@ -69,8 +73,9 @@ microservices:
       port: 3000
   user-service:
     image:
+      repository: sanixto
       name: user-service
-      tag: latest
+      tag: 1
     service:
       ports:
         - name: http
@@ -83,8 +88,9 @@ microservices:
   poller:
     skipIngress: true
     image:
+      repository: sanixto
       name: poller
-      tag: latest
+      tag: 1
     service:
       ports:
       - name: http

@@ -33,7 +33,7 @@ spec:
               value: {{ $value.migrations.VERSION | quote }}
       {{- end }}
       containers:
-        - image: {{ $value.image.name }}:{{ $value.image.tag }}
+        - image: {{ $value.image.repository }}/{{ $value.image.name }}:{{ $value.image.tag }}
           name: {{ $value.image.name }}
           imagePullPolicy: "IfNotPresent"
           securityContext:

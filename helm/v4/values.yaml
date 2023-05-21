@@ -54,8 +54,9 @@ microservices:
   token-manager:
     migrations:
       image:
+        repository: sanixto
         name: token-manager-migrations
-        tag: latest
+        tag: 1
       POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
       VERSION: "20211128095755"
     image:

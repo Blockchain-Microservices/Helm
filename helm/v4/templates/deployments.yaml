@@ -24,7 +24,7 @@ spec:
       {{- if $value.migrations }}
         - name: {{ $value.migrations.image.name }}
           imagePullPolicy: "IfNotPresent"
-          image: {{ $value.migrations.image.name }}:{{ $value.migrations.image.tag }}
+          image: {{ $value.migrations.image.repository }}/{{ $value.migrations.image.name }}:{{ $value.migrations.image.tag }}
           command: ["migrate", "-path", "/migrations", "-database",  "$(POSTGRESQL_URL)", "goto", "$(VERSION)"]
           env:
             - name: POSTGRESQL_URL

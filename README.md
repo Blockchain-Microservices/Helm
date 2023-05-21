@@ -1,5 +1,7 @@
 # Microservices
 
+## Instructions
+
 ### Clone this repository
 
     git clone     
@@ -20,3 +22,14 @@
 
 ``` lab 3 - v1, v2, v3, v4 ```  
 ``` lab 4 - only v3 ```
+
+## API
+
+Service       | Path                         |
+------------- | ---------------------------- |
+client        | {minikube ip}                |
+token-manager | {minikube ip}/token          | 
+token-factory | {minikube ip}/token-factory  |
+poller        |             -                |
+user-service  | {minikube ip}/user           |
+

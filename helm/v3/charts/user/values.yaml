@@ -18,24 +18,6 @@ ingress:
   path: /user
   port: 8080
 
-migrations:
-  image:
-    repository: sanixto
-    name: user-service-migrations
-    tag: 1
-  config:
-    POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
-    VERSION: "20211128095755"
-
-configs:
-  DB_DATABASE: "tokens"
-  DB_HOST: "postgres"
-  DB_PORT: "5432"
-
-secrets:
-  DB_USERNAME: "dXNlcg==" #user
-  DB_PASSWORD: "dXNlcg==" #user
-
 virtual:
   timeout: 5s
   retries:

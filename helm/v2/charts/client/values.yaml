@@ -4,8 +4,9 @@ selector:
   app: client
 
 image:
+  repository: sanixto
   name: client
-  tag: latest
+  tag: 1
 
 service:
   ports:

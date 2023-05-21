@@ -4,8 +4,9 @@ selector:
   app: token-factory
 
 image:
+  repository: sanixto
   name: token-factory
-  tag: latest
+  tag: 1
 
 service:
   ports:

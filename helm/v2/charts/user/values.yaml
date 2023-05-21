@@ -4,8 +4,9 @@ selector:
   app: user
 
 image:
+  repository: sanixto
   name: user-service
-  tag: latest
+  tag: 1
 
 service:
   ports:
@@ -19,8 +20,9 @@ ingress:
 
 migrations:
   image:
+    repository: sanixto
     name: user-service-migrations
-    tag: latest
+    tag: 1
   config:
     POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
     VERSION: "20211128095755"

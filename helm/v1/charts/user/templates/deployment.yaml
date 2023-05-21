@@ -20,8 +20,8 @@ spec:
     spec:
       containers:
         - name: user-service
-          image: user-service:latest
-          imagePullPolicy: Never
+          image: sanixto/user-service:1
+          imagePullPolicy: "IfNotPresent"
           securityContext:
             privileged: true
           ports:
@@ -33,8 +33,8 @@ spec:
                 name: user-secret 
       initContainers:
         - name: run-migrations
-          image: user-service-migrations:latest
-          imagePullPolicy: Never
+          image: sanixto/user-service-migrations:1
+          imagePullPolicy: "IfNotPresent"
           command: ["migrate", "-path", "/migrations", "-database", "$(POSTGRESQL_URL)", "goto", "$(VERSION)"]
           env:
             - name: POSTGRESQL_URL

@@ -20,8 +20,8 @@ spec:
     spec:
       containers:
         - name: {{ .Values.image.name }}
-          image: {{ .Values.image.name }}:{{ .Values.image.tag }}
-          imagePullPolicy: Never
+          image: {{ .Values.migrations.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: "IfNotPresent"
           securityContext:
             privileged: true
           ports:
@@ -35,8 +35,8 @@ spec:
                 name: {{ .Release.Name }}-{{ .Chart.Name }}-secret
       initContainers:
         - name: {{ .Values.migrations.image.name }}
-          image: {{ .Values.migrations.image.name }}:{{ .Values.migrations.image.tag }}
-          imagePullPolicy: Never
+          image: {{ .Values.migrations.image.repository }}/{{ .Values.migrations.image.name }}:{{ .Values.migrations.image.tag }}
+          imagePullPolicy: "IfNotPresent"
           command: ["migrate", "-path", "/migrations", "-database", "$(POSTGRESQL_URL)", "goto", "$(VERSION)"]
           env:
             - name: POSTGRESQL_URL

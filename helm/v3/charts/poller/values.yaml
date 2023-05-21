@@ -4,8 +4,9 @@ selector:
   app: poller
 
 image:
+  repository: sanixto
   name: poller
-  tag: latest
+  tag: 1
 
 service:
   ports:

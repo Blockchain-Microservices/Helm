@@ -18,7 +18,6 @@ spec:
           name: {{ .Values.image.name }}
           ports:
             {{- range .Values.service.ports }}
-            - port: {{ .port }}
-              containerPort: {{ .containerPort }}
+            - containerPort: {{ .containerPort }}
             {{- end }}
 

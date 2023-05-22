@@ -1,0 +1,19 @@
+replicaCount: 1
+
+selector:
+  app: user
+
+image:
+  repository: sanixto
+  name: user-service
+  tag: 1
+
+service:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      containerPort: 8080
+
+ingress:
+  path: /user
+  port: 8080

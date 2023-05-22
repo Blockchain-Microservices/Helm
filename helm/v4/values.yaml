@@ -1,0 +1,100 @@
+postgresql:
+  fullnameOverride: "postgres"
+  auth:
+    database: "tokens"
+    username: "user"
+    password: "user"
+  primary:
+    persistence:
+      size: 5Gi
+      mountPath: /var/lib/postgresql/data
+
+configs:
+  DB_HOST: "postgres" 
+  DB_PORT: "5432"
+  DB_DATABASE: "tokens"
+  CONTRACT_ADDRESS: 0x48Aa62CDe9757f9910B170c779c0Ec1de903D089
+  WEB3_PROVIDER: https://goerli.infura.io/v3/335cff36dbc545ed8a73a89c91580186
+  TOKEN_MANAGER_URL: "http://localhost"
+
+secrets:
+  DB_USERNAME: "dXNlcg==" 
+  DB_PASSWORD: "dXNlcg==" 
+
+microservices:
+  client:
+    image:
+      repository: sanixto
+      name: client
+      tag:  1
+    service:
+      ports:
+        - name: http
+          port: 80
+          targetPort: 80
+          containerPort: 80
+    ingress:
+      path: /
+      port: 80
+  token-factory:
+    replicaCount: 2
+    image:
+      repository: sanixto
+      name: token-factory
+      tag: 1
+    service:
+      ports:
+      - name: http
+        port: 3000
+        targetPort: 3000
+        containerPort: 3000
+    ingress:
+      path: /factory
+      port: 3000
+  token-manager:
+    migrations:
+      image:
+        repository: sanixto
+        name: token-manager-migrations
+        tag: 1
+      POSTGRESQL_URL: "postgres://user:user@postgres:5432/tokens?sslmode=disable"
+      VERSION: "20211128095755"
+    image:
+      repository: sanixto
+      name: token-manager
+      tag: 1
+    service:
+      ports:
+      - name: http
+        port: 3000
+        targetPort: 3000
+        containerPort: 3000
+    ingress:
+      path: /token
+      port: 3000
+  user-service:
+    image:
+      repository: sanixto
+      name: user-service
+      tag: 1
+    service:
+      ports:
+        - name: http
+          port: 8080
+          targetPort: 8080
+          containerPort: 8080
+    ingress:
+      path: /user
+      port: 8080
+  poller:
+    skipIngress: true
+    image:
+      repository: sanixto
+      name: poller
+      tag: 1
+    service:
+      ports:
+      - name: http
+        port: 3000
+        targetPort: 3000
+        containerPort: 3000

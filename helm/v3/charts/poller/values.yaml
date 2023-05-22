@@ -1,0 +1,33 @@
+replicaCount: 1
+
+selector:
+  app: poller
+
+image:
+  repository: sanixto
+  name: poller
+  tag: 1
+
+service:
+  ports:
+    - port: 3000
+      targetPort: 3000
+      containerPort: 3000
+
+configs:
+  CONTRACT_ADDRESS: "0x48Aa62CDe9757f9910B170c779c0Ec1de903D089"
+  WEB3_PROVIDER: "https://goerli.infura.io/v3/335cff36dbc545ed8a73a89c91580186"
+  TOKEN_MANAGER_URL: "http://localhost"
+
+virtual:
+  timeout: 5s
+  retries:
+    attempts: 3
+    retryOn: 5xx
+    perTryTimeout: 5s  
+
+trafficPolicy:
+  consecutive5xxErrors: 7
+  interval: 5m
+  baseEjectionTime: 15m
+  maxEjectionPercent: 80

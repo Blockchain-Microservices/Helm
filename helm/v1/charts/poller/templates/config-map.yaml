@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: poller-config
+data:
+  CONTRACT_ADDRESS: "0x48Aa62CDe9757f9910B170c779c0Ec1de903D089"
+  WEB3_PROVIDER: "https://goerli.infura.io/v3/335cff36dbc545ed8a73a89c91580186"
+  TOKEN_MANAGER_URL: "http://localhost"

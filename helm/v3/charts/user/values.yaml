@@ -1,0 +1,32 @@
+replicaCount: 1
+
+selector:
+  app: user
+
+image:
+  repository: sanixto
+  name: user-service
+  tag: 1
+
+service:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      containerPort: 8080
+
+ingress:
+  path: /user
+  port: 8080
+
+virtual:
+  timeout: 5s
+  retries:
+    attempts: 3
+    retryOn: 5xx
+    perTryTimeout: 5s  
+
+trafficPolicy:
+  consecutive5xxErrors: 7
+  interval: 5m
+  baseEjectionTime: 15m
+  maxEjectionPercent: 80

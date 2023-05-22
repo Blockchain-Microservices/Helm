@@ -1,0 +1,38 @@
+replicaCount: 1
+
+selector:
+  app: token-factory
+
+image:
+  repository: sanixto
+  name: token-factory
+  tag: 1
+
+service:
+  ports:
+    - port: 3000
+      targetPort: 3000
+      containerPort: 3000
+
+ingress:
+  path: /factory
+  port: 3000
+
+configs:
+  PROVIDER: "https://eth-goerli.g.alchemy.com/v2/l1A0wAC7cGQUTBy2LVrfwxcpHygcNK0x"
+  CONTRACT_ADDRESS: "0x48Aa62CDe9757f9910B170c779c0Ec1de903D089"
+  PRIVATE_KEY: "3e4fdb08694eebe146964af52e9a4566a1eed23c9de95dc8325939f92e96f77e"
+  TOKEN_MANAGER_URL: "http://localhost"
+
+virtual:
+  timeout: 5s
+  retries:
+    attempts: 3
+    retryOn: 5xx
+    perTryTimeout: 5s  
+
+trafficPolicy:
+  consecutive5xxErrors: 7
+  interval: 5m
+  baseEjectionTime: 15m
+  maxEjectionPercent: 80

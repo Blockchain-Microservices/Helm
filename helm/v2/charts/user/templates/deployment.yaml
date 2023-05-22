@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}-deployment
+  labels:
+    name: {{ .Release.Name }}-{{ .Chart.Name }}-deployment
+    {{ .Values.selector | toYaml }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      name: {{ .Release.Name }}-{{ .Chart.Name }}-pod
+      {{ .Values.selector | toYaml }}
+  template:
+    metadata:
+      name: {{ .Release.Name }}-{{ .Chart.Name }}-pod
+      labels:
+        name: {{ .Release.Name }}-{{ .Chart.Name }}-pod
+        {{ .Values.selector | toYaml }}
+    spec:
+      containers:
+        - name: {{ .Values.image.name }}
+          image: {{ .Values.image.repository }}/{{ .Values.image.name }}:{{ .Values.image.tag }}
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            {{- range .Values.service.ports }}
+            - containerPort: {{ .containerPort }}
+            {{- end }}
+      

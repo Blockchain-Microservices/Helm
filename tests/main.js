@@ -46,8 +46,8 @@ function calculateAverageExecutionTime(durations) {
 
 // Example usage
 const endpointUrl = 'http://192.168.49.2/token';
+const breakUrl =    'http://192.168.49.2/token/break'
 const requestCount = 100;
-const breakUrl = 'http://192.168.49.2/token/break'
 
 // norm behavior
 sendMultipleRequests(endpointUrl, requestCount)

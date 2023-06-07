@@ -6,7 +6,7 @@ selector:
 image:
   repository: sanixto
   name: token-manager
-  tag: 1
+  tag: 2
 
 service:
   ports:
